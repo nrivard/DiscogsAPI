@@ -168,7 +168,7 @@
             success:(void (^)(DGRelease* release))success
             failure:(void (^)(NSError* error))failure
            progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
-         completion:(void (^)(NSArray *operations))completion {
+         completion:(void (^)(NSArray<RKObjectRequestOperation *> *operations))completion {
     DGCheckReachability();
     
     NSArray<RKObjectRequestOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];

@@ -82,7 +82,7 @@
     [self.queue addOperation:operation];
 }
 
-- (NSArray<RKObjectRequestOperation *> *)getReleaseOperationsForReleases:(NSArray<NSNumber *> *)releaseIDs success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+- (NSArray<DGOperation *> *)getReleaseOperationsForReleases:(NSArray<NSNumber *> *)releaseIDs success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
     NSMutableArray *operations = [[NSMutableArray alloc] initWithCapacity:releaseIDs.count];
     for (NSNumber *releaseID in releaseIDs) {
         DGRelease* release  = [DGRelease new];
@@ -100,8 +100,8 @@
             success:(void (^)(DGRelease* release))success
             failure:(void (^)(NSError* error))failure
            progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
-         completion:(void (^)(NSArray *operations))completion {
-    NSArray<RKObjectRequestOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];
+         completion:(void (^)(NSArray<DGOperation *> *operations))completion {
+    NSArray<DGOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];
     [self.manager enqueueBatchOfObjectRequestOperations:operations progress:progress completion:completion];
 }
 

@@ -32,6 +32,8 @@
 #import "DGImage.h"
 #import "DGMember.h"
 
+@class DGOperation;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -66,11 +68,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)getArtistReleases:(DGArtistReleasesRequest *)request success:(void (^)(DGArtistReleasesResponse *response))success failure:(nullable DGFailureBlock)failure;
 
+/**
+ Batch request a group of releases and get notified of updates
+ 
+ @param releaseIDs an array of NSNumbers of all releases requested
+ @param success Block object to be executed when a specific release request succeeds. ie if a batch of 100 requests is made, this could be called up to 100 times, once for each.
+ @param failure Block object called when a specific release request fails (same conditions as above but for failure)
+ @param progress Block called after each request finishes that contains both current index of finished request and total number of requests that were batched
+ @param completion Block called when all requests have completed with the array of batched operations
+ */
 - (void)getReleases:(NSArray<NSNumber *> *)releaseIDs
             success:(void (^)(DGRelease* release))success
             failure:(void (^)(NSError* error))failure
            progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
-         completion:(void (^)(NSArray *operations))completion;
+         completion:(void (^)(NSArray<DGOperation *> *operations))completion;
 
 /**
  Gets a release from Discogs database.

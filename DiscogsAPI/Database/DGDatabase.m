@@ -82,15 +82,31 @@
     [self.queue addOperation:operation];
 }
 
-- (void)getRelease:(NSNumber *)releaseID success:(void (^)(DGRelease *release))success failure:(void (^)(NSError *error))failure {
+- (NSArray<RKObjectRequestOperation *> *)getReleaseOperationsForReleases:(NSArray<NSNumber *> *)releaseIDs success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+    NSMutableArray *operations = [[NSMutableArray alloc] initWithCapacity:releaseIDs.count];
+    for (NSNumber *releaseID in releaseIDs) {
+        DGRelease* release  = [DGRelease new];
+        release.ID = releaseID;
+        
+        DGOperation *operation = [self.manager operationWithRequest:release method:RKRequestMethodGET responseClass:[DGRelease class]];
+        [operation setCompletionBlockWithSuccess:success failure:failure];
+        [operations addObject:operation];
+    }
     
-    DGRelease *release  = [DGRelease new];
-    release.ID          = releaseID;
-    
-    DGOperation *operation = [self.manager operationWithRequest:release method:RKRequestMethodGET responseClass:[DGRelease class]];
-    [operation setCompletionBlockWithSuccess:success failure:failure];
-    
-    [self.queue addOperation:operation];
+    return operations;
+}
+
+- (void)getReleases:(NSArray<NSNumber *> *)releaseIDs
+            success:(void (^)(DGRelease* release))success
+            failure:(void (^)(NSError* error))failure
+           progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
+         completion:(void (^)(NSArray *operations))completion {
+    NSArray<RKObjectRequestOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];
+    [self.manager enqueueBatchOfObjectRequestOperations:operations progress:progress completion:completion];
+}
+
+- (void) getRelease:(NSNumber*)releaseID success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+    [self getReleases:@[releaseID] success:success failure:failure progress:nil completion:nil];
 }
 
 - (void)getMaster:(NSNumber *)masterID success:(void (^)(DGMaster *master))success failure:(void (^)(NSError *error))failure {

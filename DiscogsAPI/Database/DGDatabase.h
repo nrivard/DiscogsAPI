@@ -66,6 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)getArtistReleases:(DGArtistReleasesRequest *)request success:(void (^)(DGArtistReleasesResponse *response))success failure:(nullable DGFailureBlock)failure;
 
+- (void)getReleases:(NSArray<NSNumber *> *)releaseIDs
+            success:(void (^)(DGRelease* release))success
+            failure:(void (^)(NSError* error))failure
+           progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
+         completion:(void (^)(NSArray *operations))completion;
+
 /**
  Gets a release from Discogs database.
  

@@ -73,6 +73,12 @@
  */
 - (void) getArtistReleases:(DGArtistReleaseRequest*)request success:(void (^)(DGArtistReleaseResponse* response))success failure:(void (^)(NSError* error))failure;
 
+- (void)getReleases:(NSArray<NSNumber *> *)releaseIDs
+            success:(void (^)(DGRelease* release))success
+            failure:(void (^)(NSError* error))failure
+           progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
+         completion:(void (^)(NSArray *operations))completion;
+
 /**
  Gets a release from Discogs database.
  

@@ -133,33 +133,50 @@
     [self.manager enqueueObjectRequestOperation:objectRequestOperation];
 }
 
-- (void) getRelease:(NSNumber*)releaseID success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+- (NSArray<RKObjectRequestOperation *> *)getReleaseOperationsForReleases:(NSArray<NSNumber *> *)releaseIDs success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+    NSMutableArray *operations = [[NSMutableArray alloc] initWithCapacity:releaseIDs.count];
+    for (NSNumber *releaseID in releaseIDs) {
+        DGRelease* release  = [DGRelease release];
+        release.ID          = releaseID;
+        
+        NSURLRequest *requestURL = [self.manager requestWithObject:release method:RKRequestMethodGET path:nil parameters:nil];
+        
+        RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithRequest:requestURL responseDescriptors:@[ [DGRelease responseDescriptor] ]];
+        
+        [objectRequestOperation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            NSArray* results = mappingResult.array;
+            if ([[results firstObject] isKindOfClass:[DGRelease class]]) {
+                DGRelease* release = [results firstObject];
+                
+                success(release);
+            }
+            else {
+                failure([self errorWithCode:NSURLErrorCannotParseResponse info:@"Bad response from Discogs server"]);
+            }
+        }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                          RKLogError(@"Operation failed with error: %@", error);
+                                                          failure(error);
+                                                      }];
+        [operations addObject:objectRequestOperation];
+    }
+    
+    return operations;
+}
+
+- (void)getReleases:(NSArray<NSNumber *> *)releaseIDs
+            success:(void (^)(DGRelease* release))success
+            failure:(void (^)(NSError* error))failure
+           progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
+         completion:(void (^)(NSArray *operations))completion {
     DGCheckReachability();
     
-    DGRelease* release  = [DGRelease release];
-    release.ID          = releaseID;
-    
-    NSURLRequest *requestURL = [self.manager requestWithObject:release method:RKRequestMethodGET path:nil parameters:nil];
-    
-    RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithRequest:requestURL responseDescriptors:@[ [DGRelease responseDescriptor] ]];
-    
-    [objectRequestOperation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-         NSArray* results = mappingResult.array;
-         if ([[results firstObject] isKindOfClass:[DGRelease class]]) {
-             DGRelease* release = [results firstObject];
-             
-             success(release);
-         }
-         else {
-             failure([self errorWithCode:NSURLErrorCannotParseResponse info:@"Bad response from Discogs server"]);
-         }
-     }
-     failure:^(RKObjectRequestOperation *operation, NSError *error) {
-         RKLogError(@"Operation failed with error: %@", error);
-         failure(error);
-     }];
-    
-    [self.manager enqueueObjectRequestOperation:objectRequestOperation];
+    NSArray<RKObjectRequestOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];
+    [self.manager enqueueBatchOfObjectRequestOperations:operations progress:progress completion:completion];
+}
+
+- (void) getRelease:(NSNumber*)releaseID success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
+    [self getReleases:@[releaseID] success:success failure:failure progress:nil completion:nil];
 }
 
 - (void) getMaster:(NSNumber*)masterID success:(void (^)(DGMaster* master))success failure:(void (^)(NSError* error))failure {

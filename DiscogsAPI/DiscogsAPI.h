@@ -28,6 +28,8 @@
 #import "DGResource.h"
 #import "DGMarketplace.h"
 
+#import "NSHTTPURLResponse+DiscogsAPI.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

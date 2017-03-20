@@ -54,6 +54,11 @@ typedef NS_ENUM(NSInteger, DGErrorCode){
 typedef void(^DGFailureBlock)(NSError *error);
 
 /**
+ A block that informs users of task progress periodically
+ */
+typedef void(^DGProgressBlock)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations);
+
+/**
  Endpoint operation queue.
  */
 @property (nonatomic, readonly) NSOperationQueue *queue;

@@ -101,7 +101,7 @@
             success:(void (^)(DGRelease* release))success
             failure:(void (^)(NSError* error))failure
            progress:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progress
-         completion:(void (^)(NSArray<DGOperation *> *operations))completion {
+         completion:(void (^)(NSArray<RKObjectRequestOperation *> *operations))completion {
     NSArray<DGOperation *> *operations = [self getReleaseOperationsForReleases:releaseIDs success:success failure:failure];
     [self.manager enqueueBatchOfObjectRequestOperations:operations progress:progress completion:completion];
 }

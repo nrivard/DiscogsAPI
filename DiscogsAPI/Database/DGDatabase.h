@@ -32,7 +32,7 @@
 #import "DGImage.h"
 #import "DGMember.h"
 
-@class DGOperation;
+#import <RestKit/RKObjectRequestOperation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
             success:(void (^)(DGRelease* release))success
             failure:(nullable DGFailureBlock)failure
            progress:(nullable DGProgressBlock)progress
-         completion:(nullable void (^)(NSArray<DGOperation *> *operations))completion;
+         completion:(nullable void (^)(NSArray<RKObjectRequestOperation *> *operations))completion;
 
 /**
  Gets a release from Discogs database.

@@ -28,6 +28,8 @@
 - (instancetype)initWithManager:(DGObjectManager *)manager {
     self = [super init];
     if (self) {
+        self.queue = manager.operationQueue;
+        
         objc_setAssociatedObject(self, @selector(manager), manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self configureManager:manager];
     }
@@ -35,7 +37,7 @@
 }
 
 - (void)configureManager:(DGObjectManager *)objectManager {
-    
+    self.queue.maxConcurrentOperationCount = 1;
 }
 
 #pragma mark Properties

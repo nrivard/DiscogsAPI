@@ -41,6 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) DGObjectManager *manager;
 
 /**
+ Expose underlying queue so we can assign it to the manager's shared queue
+ This is undoing the private queue scheme of mainline DiscogsAPI. This is a rate-limited service so it actually doesn't make sense to have private queues.
+ */
+@property (nonatomic, strong) NSOperationQueue *queue;
+
+/**
  Initializes an endpoint and configure the `DGObjectManager`object.
 
  @param manager The manager to configure.

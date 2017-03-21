@@ -24,13 +24,12 @@
 
 @implementation DGEndpoint
 
-@synthesize queue = _queue;
+- (void)resume {
+    self.queue.suspended = NO;
+}
 
-- (NSOperationQueue *)queue {
-    if (!_queue) {
-        _queue = [[NSOperationQueue alloc] init];
-    }
-    return _queue;
+- (void)pause {
+    self.queue.suspended = YES;
 }
 
 @end

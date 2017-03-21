@@ -63,6 +63,9 @@ typedef void(^DGProgressBlock)(NSUInteger numberOfFinishedOperations, NSUInteger
  */
 @property (nonatomic, readonly) NSOperationQueue *queue;
 
+- (void)resume;
+- (void)pause;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

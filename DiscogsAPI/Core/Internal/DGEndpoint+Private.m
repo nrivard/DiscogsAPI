@@ -35,7 +35,7 @@
 }
 
 - (void)configureManager:(DGObjectManager *)objectManager {
-
+    
 }
 
 #pragma mark Properties

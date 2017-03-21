@@ -82,6 +82,7 @@
     [self.queue addOperation:operation];
 }
 
+/// private method for getRelease operation creation
 - (NSArray<DGOperation *> *)getReleaseOperationsForReleases:(NSArray<NSNumber *> *)releaseIDs success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
     NSMutableArray *operations = [[NSMutableArray alloc] initWithCapacity:releaseIDs.count];
     for (NSNumber *releaseID in releaseIDs) {
@@ -106,7 +107,8 @@
 }
 
 - (void) getRelease:(NSNumber*)releaseID success:(void (^)(DGRelease* release))success failure:(void (^)(NSError* error))failure {
-    [self getReleases:@[releaseID] success:success failure:failure progress:nil completion:nil];
+    NSArray<DGOperation *> *operations = [self getReleaseOperationsForReleases:@[releaseID] success:success failure:failure];
+    [self.queue addOperations:operations waitUntilFinished:NO];
 }
 
 - (void)getMaster:(NSNumber *)masterID success:(void (^)(DGMaster *master))success failure:(void (^)(NSError *error))failure {

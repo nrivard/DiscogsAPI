@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Batch request a group of releases and get notified of updates
+ NOTE: this operation actually happens on the manager's queue, not this endpoints private queue. This is because RestKit is actually providing the guarantee all operations complete before completion is called.
  
  @param releaseIDs an array of NSNumbers of all releases requested
  @param success Block object to be executed when a specific release request succeeds. ie if a batch of 100 requests is made, this could be called up to 100 times, once for each.

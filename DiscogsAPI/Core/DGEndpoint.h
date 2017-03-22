@@ -22,6 +22,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Key used in DGFailureBlock's -[NSError userInfo] to retrieve original RKObjectRequestOperation (which is actually DGOperation)
+ */
+FOUNDATION_EXPORT NSString *const DGErrorRKObjectOperationKey;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

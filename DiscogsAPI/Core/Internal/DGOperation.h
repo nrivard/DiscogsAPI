@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  NSError extension to create and map Discogs errors.
+ 
+ Note: userInfo will contain the failing object operation via DGErrorRKObjectOperationKey as an RKObjectionRequestOperation
  */
 @interface NSError (Mapping) <DGResponseObject>
 

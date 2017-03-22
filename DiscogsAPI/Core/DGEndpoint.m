@@ -22,6 +22,8 @@
 
 #import "DGEndpoint.h"
 
+NSString *const DGErrorRKObjectOperationKey = @"DGErrorRKObjectOperationKey";
+
 @implementation DGEndpoint
 
 @end

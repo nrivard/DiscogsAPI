@@ -52,6 +52,7 @@
     self = [super initWithHTTPClient:client];
     if (self) {
         self.requestSerializationMIMEType = RKMIMETypeJSON;
+        self.operationQueue.maxConcurrentOperationCount = 1;
     }
     return self;
 }

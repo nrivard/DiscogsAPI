@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The currently autenticated user identity.
  */
-@property (class, readonly, nullable) DGIdentity *current;
+@property (class, strong, nullable) DGIdentity *current;
 
 /**
  User name.

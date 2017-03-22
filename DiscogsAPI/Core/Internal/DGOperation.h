@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param code        The error code for the error.
  @param description The error description.
+ 
+ userInfo will contain the failing object operation via DGErrorRKObjectOperationKey as an RKObjectionRequestOperation
 
  @return An Disocgs NSError object with the specified error code and the description.
  */

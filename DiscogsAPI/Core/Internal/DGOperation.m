@@ -22,6 +22,9 @@
 
 #import "DGOperation.h"
 
+#import "DGEndpoint.h"
+#import "DGMapping.h"
+
 // The error domain for Discogs generated errors
 NSString * const DGErrorDomain = @"com.discogs.api";
 
@@ -53,9 +56,12 @@ NSString * const DGErrorDomain = @"com.discogs.api";
         success(weakSelf.response);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         if (failure) {
-            NSInteger code = operation.HTTPRequestOperation.response.statusCode;
             NSString *description = error.userInfo[NSLocalizedDescriptionKey];
-            failure([NSError errorWithCode:code description:description]);
+            NSDictionary<NSString *, id> *userInfo = @{ DGErrorRKObjectOperationKey : operation,
+                                                        NSLocalizedDescriptionKey : description };
+            
+            NSInteger code = operation.HTTPRequestOperation.response.statusCode;
+            failure([NSError errorWithDomain:DGErrorDomain code:code userInfo:userInfo]);
         }
     }];
 }

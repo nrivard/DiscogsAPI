@@ -21,8 +21,15 @@
 // THE SOFTWARE.
 
 #import "DGEndpoint.h"
+#import "DGEndpoint+Private.h"
+
+NSString *const DGErrorRKObjectOperationKey = @"DGErrorRKObjectOperationKey";
 
 @implementation DGEndpoint
+
+- (NSOperationQueue *)queue {
+    return self.manager.operationQueue;
+}
 
 - (void)resume {
     self.queue.suspended = NO;

@@ -45,9 +45,6 @@ static NSString * const kDGOAuth1CredentialDiscogsAccount = @"DGOAuthCredentialD
     
     if (DGIdentity.current) {
         manager.HTTPClient.accessToken = DGIdentity.current.accessToken;
-    } else {
-        //Backward compatibility
-        manager.HTTPClient.accessToken = [DGTokenStore retrieveCredentialWithIdentifier:kDGOAuth1CredentialDiscogsAccount];
     }
 
     //User Identity

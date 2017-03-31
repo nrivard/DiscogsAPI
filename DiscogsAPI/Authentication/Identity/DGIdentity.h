@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DGIdentity : DGObject
 
 /**
- The currently autenticated user identity.
+ The currently autenticated user identity. setting to nil will clear keychain of the stored identity.
  */
-@property (class, readonly, nullable) DGIdentity *current;
+@property (class, strong, nullable) DGIdentity *current;
 
 /**
  User name.

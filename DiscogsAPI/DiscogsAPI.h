@@ -102,6 +102,11 @@ typedef NS_ENUM(NSInteger, DGMediaType){
  */
 @property (class, readonly) Discogs *api;
 
+/**
+ Logs the current user out by getting rid of current auth tokens in the keychain and in memory
+ */
+- (void)logout;
+
 @end
 
 @interface DiscogsAPI : Discogs

@@ -95,6 +95,11 @@ static NSString * AccessToken    = nil;
     return self;
 }
 
+- (void)logout {
+    DGIdentity.current = nil;
+    self.manager.HTTPClient.accessToken = nil;
+}
+
 #pragma mark Properties
 
 - (DGMediaType)mediaType {

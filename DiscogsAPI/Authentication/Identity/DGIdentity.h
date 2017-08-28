@@ -22,6 +22,8 @@
 
 #import "DGObject.h"
 
+#import "AFOAuth1Client.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -43,6 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
  User consumer name.
  */
 @property (nonatomic, strong, nullable) NSString *consumerName;
+
+/**
+ The user access token.
+ */
+@property (nonatomic, strong) AFOAuth1Token *accessToken;
 
 @end
 

@@ -62,7 +62,7 @@
 		9C55DB441D07124B00DF8AFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C55DB431D07124B00DF8AFE /* Assets.xcassets */; };
 		9C5B32DE1DCCFBE200CCF140 /* DGIdentity+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5B32DC1DCCFBE200CCF140 /* DGIdentity+Mapping.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9C5B32DF1DCCFBE200CCF140 /* DGIdentity+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B32DD1DCCFBE200CCF140 /* DGIdentity+Mapping.m */; };
-		9C88BCC81DB90AE200DC9E61 /* AFOAuth1Client.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C88BCC41DB90AE200DC9E61 /* AFOAuth1Client.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9C88BCC81DB90AE200DC9E61 /* AFOAuth1Client.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C88BCC41DB90AE200DC9E61 /* AFOAuth1Client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C88BCC91DB90AE200DC9E61 /* AFOAuth1Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C88BCC51DB90AE200DC9E61 /* AFOAuth1Client.m */; };
 		9CA793F51D04ED5F0006EE89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CA793EA1D04ED5F0006EE89 /* Assets.xcassets */; };
 		9CA793F71D04ED5F0006EE89 /* DGAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA793EC1D04ED5F0006EE89 /* DGAppDelegate.swift */; };

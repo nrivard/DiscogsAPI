@@ -22,9 +22,9 @@
 
 #import "DGObject.h"
 
-#import "AFOAuth1Client.h"
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class AFOAuth1Token;
 
 /**
  User identification class.

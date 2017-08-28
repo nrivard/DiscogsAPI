@@ -35,8 +35,7 @@ Pod::Spec.new do |s|
                                 '#import <Security/Security.h>',
                                 '#import <RestKit/RestKit.h>'
 
-    ss.private_header_files = 'DiscogsAPI/Core/Internal/*.h',
-                              'AFOAuth1Client/AFOAuth1Client/*.h'
+    ss.private_header_files = 'DiscogsAPI/Core/Internal/*.h'
 
     ss.dependency 'DiscogsAPI/Mapping'
     ss.dependency 'RestKit/ObjectMapping', '~> 0.27.0'

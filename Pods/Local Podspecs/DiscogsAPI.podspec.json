@@ -54,10 +54,7 @@
         "#import <Security/Security.h>",
         "#import <RestKit/RestKit.h>"
       ],
-      "private_header_files": [
-        "DiscogsAPI/Core/Internal/*.h",
-        "AFOAuth1Client/AFOAuth1Client/*.h"
-      ],
+      "private_header_files": "DiscogsAPI/Core/Internal/*.h",
       "dependencies": {
         "DiscogsAPI/Mapping": [
 

@@ -22,9 +22,20 @@
 
 #import "DGObject.h"
 
-#import "DGCompany+DiscogsAPI.h"
-
 NS_ASSUME_NONNULL_BEGIN
+
+/**
+ Primitive values for DGCompany.entityType
+ */
+typedef NS_ENUM(NSInteger, DGCompanyType) {
+    DGCompanyTypeLabel = 1,
+    DGCompanyTypeLicensedTo = 5,
+    DGCompanyTypePhonographicCopyright = 13,
+    DGCompanyTypeCopyright = 14,
+    DGCompanyTypePublishedBy = 21,
+    DGCompanyTypeRecordedAt = 23,
+    DGCompanyTypeMixedAt = 27,
+};
 
 /** Sample JSON
      {

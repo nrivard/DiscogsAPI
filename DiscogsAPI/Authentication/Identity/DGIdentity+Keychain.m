@@ -8,8 +8,6 @@
 
 #import "DGIdentity+Keychain.h"
 
-#import "AFOAuth1Client.h"
-
 NSString * const kDGIdentityCurrentIdentifier = @"DGIdentityCurrentIdentifier";
 
 @implementation DGIdentity (Keychain)

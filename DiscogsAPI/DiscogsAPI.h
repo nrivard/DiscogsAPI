@@ -28,6 +28,8 @@
 #import "DGResource.h"
 #import "DGMarketplace.h"
 
+@class AFOAuth1Token;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -101,6 +103,11 @@ typedef NS_ENUM(NSInteger, DGMediaType){
  @return The shared discogs api client.
  */
 @property (class, readonly) Discogs *api;
+
+/**
+ Log in with a fully formed AFOAuth1Token provided by some external means.
+ */
+- (void)loginWithToken:(AFOAuth1Token *)token;
 
 /**
  Logs the current user out by getting rid of current auth tokens in the keychain and in memory

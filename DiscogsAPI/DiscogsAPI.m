@@ -95,6 +95,10 @@ static NSString * AccessToken    = nil;
     return self;
 }
 
+- (void)loginWithToken:(AFOAuth1Token *)token {
+    self.manager.HTTPClient.accessToken = token;
+}
+
 - (void)logout {
     DGIdentity.current = nil;
     self.manager.HTTPClient.accessToken = nil;

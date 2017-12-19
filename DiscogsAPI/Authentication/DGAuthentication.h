@@ -23,6 +23,8 @@
 #import "DGEndpoint.h"
 #import "DGIdentity.h"
 
+#import <UIKit/UIKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -30,7 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 FOUNDATION_EXTERN NSString * const DGCallback /* discogsapi://success */;
 
-@class UIWebView;
+typedef void (^DGAuthenticationSuccessBlock)(DGIdentity * _Nonnull);
+
+@class DGAuthView;
 
 /**
  Authentification class to manage the Discogs authentification process.
@@ -63,7 +67,7 @@ FOUNDATION_EXTERN NSString * const DGCallback /* discogsapi://success */;
  @param success  A block object to be executed when the authenticate operation finishes successfully. This block has no return value and no argument.
  @param failure A block object to be executed when the authenticate operation finishes unsuccessfully. This block has no return value and takes one argument: The `NSError` object describing the error that occurred.
  */
-- (void)authenticateWithCallback:(NSURL *)callback success:(void (^)(DGIdentity *identity))success failure:(nullable DGFailureBlock)failure;
+- (void)authenticateWithCallback:(NSURL *)callback success:(DGAuthenticationSuccessBlock)success failure:(nullable DGFailureBlock)failure;
 
 /**
  Call this method from the [UIApplicationDelegate application:openURL:options:] method of the AppDelegate for your app. It should be invoked for the proper processing of responses during interaction with Safari as part of the authentication flow.
@@ -80,7 +84,18 @@ FOUNDATION_EXTERN NSString * const DGCallback /* discogsapi://success */;
  @param success  A block object to be executed when the authenticate operation finishes successfully. This block has no return value and no argument.
  @param failure  A block object to be executed when the authenticate operation finishes unsuccessfully. This block has no return value and takes one argument: The `NSError` object describing the error that occurred.
  */
-- (void)authenticateWithPreparedAuthorizationViewHandler:(void (^)(UIWebView *authView))authView success:(void (^)(DGIdentity *identity))success failure:(nullable DGFailureBlock)failure;
+- (void)authenticateWithPreparedAuthorizationViewHandler:(void (^)(UIView *authView))authView success:(DGAuthenticationSuccessBlock)success failure:(nullable DGFailureBlock)failure;
+
+/**
+ Authenticate with an initially prepared view. this does _not_ guarantee that the process will end with this view. In certain specific case (namely
+ Google login) another method may be chosen. this is necessary bc Google deprecated google logins initiated from embedded web views.
+ You are still responsbile for dismissing the initial view/controller on success/failure
+ If you were using the above, use this instead. It's safer in terms of app store approval and is a better experience for all users.
+ 
+ NOTE: Pre iOS 11 _will_ use the external URL scheme so you will have to implement the same thing outlined in
+ - [DGAuthentication authenticateWithCallback:success:failure:] in your app delegate.
+ */
+- (void)authenticateWithInitiallyPreparedView:(void (^)(UIView *view))authView success:(DGAuthenticationSuccessBlock)success failure:(nullable DGFailureBlock)failure;
 
 /**
  Logs out the current identity and nilify access token.

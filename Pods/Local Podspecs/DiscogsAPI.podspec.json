@@ -16,7 +16,7 @@
   "documentation_url": "http://cocoadocs.org/docsets/DiscogsAPI",
   "requires_arc": true,
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "ios": {
     "frameworks": [

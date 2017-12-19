@@ -85,7 +85,7 @@
 		D0A587E51CFF92E4008DF0A4 /* DiscogsAPI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A587E41CFF92E4008DF0A4 /* DiscogsAPI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A588841CFF9482008DF0A4 /* DGAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A587E81CFF9481008DF0A4 /* DGAuthentication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A588851CFF9482008DF0A4 /* DGAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A587E91CFF9481008DF0A4 /* DGAuthentication.m */; };
-		D0A588861CFF9482008DF0A4 /* DGAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A587EA1CFF9481008DF0A4 /* DGAuthView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D0A588861CFF9482008DF0A4 /* DGAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A587EA1CFF9481008DF0A4 /* DGAuthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A588871CFF9482008DF0A4 /* DGAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A587EB1CFF9481008DF0A4 /* DGAuthView.m */; };
 		D0A5888E1CFF9482008DF0A4 /* DGEndpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A587F41CFF9481008DF0A4 /* DGEndpoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A5888F1CFF9482008DF0A4 /* DGEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A587F51CFF9481008DF0A4 /* DGEndpoint.m */; };
@@ -1849,7 +1849,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = C75GEDTP26;
 				INFOPLIST_FILE = "$(SRCROOT)/Example-Objc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.maxep.Discogs-objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1864,7 +1864,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = C75GEDTP26;
 				INFOPLIST_FILE = "$(SRCROOT)/Example-Objc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.maxep.Discogs-objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1982,7 +1982,7 @@
 				GCC_PREFIX_HEADER = Framework/DiscogsAPI.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Framework/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.maxep.DiscogsAPI;
@@ -2007,7 +2007,7 @@
 				GCC_PREFIX_HEADER = Framework/DiscogsAPI.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Framework/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.maxep.DiscogsAPI;

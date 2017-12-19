@@ -21,13 +21,32 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DGAuthView;
+
+@protocol DGAuthViewNavigationDelegate<NSObject>
+
+/** called when a user encounters a google login.
+  * return the desired WKNavigationActionPolicy to proceed or cancel
+  * if you return .cancel, the delegate is agreeing to handle the google login
+  */
+- (WKNavigationActionPolicy)authView:(DGAuthView *)authView policyForGoogleLoginRequest:(NSURLRequest *)request;
+
+@end
+
 /**
- The authoriation web view.
+ The authentication web view.
  */
-@interface DGAuthView : UIWebView <UIWebViewDelegate>
+@interface DGAuthView : UIView
+
+/** readonly access to the underlying web view */
+@property (nonatomic, strong, readonly) WKWebView *webView;
+
+/** specialized navigation delegate for this authentication view */
+@property (nonatomic, weak, nullable) id<DGAuthViewNavigationDelegate> navigationDelegate;
 
 /**
  Creates and initializes a `DGAuthView` object with the specified request URL.

@@ -30,9 +30,21 @@
 #import "DGIdentity+Keychain.h"
 #import "DGIdentity+Mapping.h"
 
+#import <SafariServices/SafariServices.h>
+
 NSString * const DGCallback = @"discogsapi://success";
 
 static NSString * const kDGOAuth1CredentialDiscogsAccount = @"DGOAuthCredentialDiscogsAccount";
+
+/** we are declaring two private interfaces. one is to conform to the delegate protocol. */
+@interface DGAuthentication () <DGAuthViewNavigationDelegate>
+@end
+
+/** the other is to allow for ios 11 specific functionality */
+API_AVAILABLE(ios(11.0))
+@interface DGAuthentication ()
+@property (nonatomic, strong, nullable) SFAuthenticationSession *authSession;
+@end
 
 @implementation DGAuthentication {
     NSString *_callback;
@@ -79,7 +91,7 @@ static NSString * const kDGOAuth1CredentialDiscogsAccount = @"DGOAuthCredentialD
     [self.queue addOperation:operation];
 }
 
-- (void)authenticateWithCallback:(NSURL *)callback success:(void (^)(DGIdentity *identity))success failure:(void (^)(NSError *error))failure {
+- (void)authenticateWithCallback:(NSURL *)callback success:(DGAuthenticationSuccessBlock)success failure:(void (^)(NSError *error))failure {
     
     [self identityWithSuccess:success failure:^(NSError *error) {
         
@@ -108,7 +120,16 @@ static NSString * const kDGOAuth1CredentialDiscogsAccount = @"DGOAuthCredentialD
     return NO;
 }
 
-- (void)authenticateWithPreparedAuthorizationViewHandler:(void (^)(UIWebView *authView))authView success:(void (^)(DGIdentity *identity))success failure:(void (^)(NSError *error))failure {
+/**
+ this is used by the SFAuthenticationSession handler in cases where there was an error. There's no way to bubble this up any other way, but
+ AFOAuth1Client will look for a valid key in the query params, which it won't find, and then invoke the chain of failure blocks.
+ */
+- (void)invokeOpenURLWithErrorConditions {
+    // just invoke this with an empty "success" URL but missing the oauth_verifier, etc.
+    [self openURL:[NSURL URLWithString:DGCallback]];
+}
+
+- (void)authenticateWithPreparedAuthorizationViewHandler:(void (^)(UIView *authView))authView success:(DGAuthenticationSuccessBlock)success failure:(void (^)(NSError *error))failure {
     
     [self.manager.HTTPClient setServiceProviderRequestHandler:^(NSURLRequest *request) {
         DGAuthView *view = [DGAuthView viewWithRequest:request];
@@ -117,6 +138,39 @@ static NSString * const kDGOAuth1CredentialDiscogsAccount = @"DGOAuthCredentialD
     
     NSURL *callback = [NSURL URLWithString:DGCallback];
     [self authenticateWithCallback:callback success:success failure:failure];
+}
+
+- (void)authenticateWithInitiallyPreparedView:(void (^)(UIView * _Nonnull))authView success:(DGAuthenticationSuccessBlock)success failure:(DGFailureBlock)failure {
+    [self.manager.HTTPClient setServiceProviderRequestHandler:^(NSURLRequest *request) {
+        DGAuthView *view = [DGAuthView viewWithRequest:request];
+        view.navigationDelegate = self;
+        authView(view);
+    } completion:nil];
+    
+    NSURL *callback = [NSURL URLWithString:DGCallback];
+    [self authenticateWithCallback:callback success:success failure:failure];
+}
+
+- (WKNavigationActionPolicy)authView:(DGAuthView *)authView policyForGoogleLoginRequest:(NSURLRequest *)request {
+    if (@available(iOS 11.0, *)) {
+        __weak __typeof(self) weakSelf = self;
+
+        self.authSession = [[SFAuthenticationSession alloc] initWithURL:request.URL callbackURLScheme:[NSURL URLWithString:DGCallback].scheme completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+            if (callbackURL && !error) {
+                [weakSelf openURL:callbackURL];
+            } else if ([error code] != SFAuthenticationErrorCanceledLogin) {
+                [weakSelf invokeOpenURLWithErrorConditions];
+            }
+            weakSelf.authSession = nil;
+        }];
+
+        [self.authSession start];
+    } else {
+        [[UIApplication sharedApplication] openURL:request.URL];
+    }
+
+    // we always cancel bc we are handling this ourselves regardless
+    return WKNavigationActionPolicyCancel;
 }
 
 @end

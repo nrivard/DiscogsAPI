@@ -165,6 +165,7 @@ API_AVAILABLE(ios(11.0))
             if (callbackURL && !error) {
                 [weakSelf openURL:callbackURL];
             } else if ([error code] != SFAuthenticationErrorCanceledLogin) {
+                self.lastAuthenticationError = error;
                 [weakSelf invokeOpenURLWithErrorConditions];
             }
             weakSelf.authSession = nil;
@@ -177,6 +178,11 @@ API_AVAILABLE(ios(11.0))
 
     // we always cancel bc we are handling this ourselves regardless
     return WKNavigationActionPolicyCancel;
+}
+
+- (void)authView:(DGAuthView *)authView didFailToLoadWithError:(NSError *)error {
+    self.lastAuthenticationError = error;
+    [self invokeOpenURLWithErrorConditions];
 }
 
 @end

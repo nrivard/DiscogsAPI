@@ -27,8 +27,13 @@
 
 extern NSString * const DGCallback;
 
+static NSString *const DGAuthKVOKeyPathLoading = @"loading";
+static NSString *const DGAuthKVOKeyPathEstimatedProgress = @"estimatedProgress";
+
 @interface DGAuthView () <WKNavigationDelegate>
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) NSLayoutConstraint *progressViewTopConstraint;
 @end
 
 @implementation DGAuthView
@@ -40,6 +45,7 @@ extern NSString * const DGCallback;
 - (instancetype)initWithRequest:(NSURLRequest *)request {
     if (self = [super init]) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         
         [self addSubview:_webView];
         _webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -48,11 +54,52 @@ extern NSString * const DGCallback;
         [_webView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
         [_webView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
         
+        [self addSubview:_progressView];
+        _progressView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
+        [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
+        [_progressView.heightAnchor constraintEqualToConstant:1.0];
+        
+        // we don't need to do anything if we're on iOS 11, but if we're not, we need to change the constant of the top anchor
+        // based on any changing content inset
+        if (@available(iOS 11.0, *)) {
+            _progressViewTopConstraint = [_progressView.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor];
+        } else {
+            _progressViewTopConstraint = [_progressView.topAnchor constraintEqualToAnchor:self.topAnchor constant: _webView.scrollView.contentInset.top];
+        }
+        _progressViewTopConstraint.active = YES;
+        
         _webView.navigationDelegate = self;
+        _webView.allowsLinkPreview = NO;
+        
+        [_webView addObserver:self forKeyPath:DGAuthKVOKeyPathLoading options:NSKeyValueObservingOptionNew context:nil];
+        [_webView addObserver:self forKeyPath:DGAuthKVOKeyPathEstimatedProgress options:NSKeyValueObservingOptionNew context:nil];
+        
+        _progressView.tintColor = self.tintColor;
         
         [self loadRequest:request];
     }
     return self;
+}
+
+- (void)dealloc {
+    [_webView removeObserver:self forKeyPath:DGAuthKVOKeyPathLoading];
+    [_webView removeObserver:self forKeyPath:DGAuthKVOKeyPathEstimatedProgress];
+}
+
+- (void)tintColorDidChange {
+    [super tintColorDidChange];
+    _progressView.tintColor = self.tintColor;
+}
+
+- (void)layoutMarginsDidChange {
+    [super layoutMarginsDidChange];
+    
+    if (@available(iOS 11.0, *)) {
+        // do nothing. just want this work work on non-ios 11 devices
+    } else {
+        self.progressViewTopConstraint.constant = self.webView.scrollView.contentInset.top;
+    }
 }
 
 - (void)loadRequest:(NSURLRequest *)request {
@@ -97,6 +144,31 @@ extern NSString * const DGCallback;
     }
     
     decisionHandler(policy);
+}
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [self.navigationDelegate authView:self didFailToLoadWithError:error];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object != _webView) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    
+    if ([keyPath isEqualToString:DGAuthKVOKeyPathLoading]) {
+        BOOL isLoading = [change[NSKeyValueChangeNewKey] boolValue];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = isLoading;
+        
+        if (!isLoading) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                _progressView.progress = 0.0;
+            });
+        }
+    } else if ([keyPath isEqualToString:DGAuthKVOKeyPathEstimatedProgress]) {
+        CGFloat progress = [change[NSKeyValueChangeNewKey] doubleValue];
+        [_progressView setProgress:progress animated:YES];
+    }
 }
 
 @end

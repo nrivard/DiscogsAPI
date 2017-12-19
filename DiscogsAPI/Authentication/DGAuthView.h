@@ -35,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
   */
 - (WKNavigationActionPolicy)authView:(DGAuthView *)authView policyForGoogleLoginRequest:(NSURLRequest *)request;
 
+/** called when a loading error is encountered
+ */
+- (void)authView:(DGAuthView *)authView didFailToLoadWithError:(NSError *)error;
+
 @end
 
 /**

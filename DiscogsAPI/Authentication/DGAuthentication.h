@@ -42,6 +42,12 @@ typedef void (^DGAuthenticationSuccessBlock)(DGIdentity * _Nonnull);
 @interface DGAuthentication : DGEndpoint
 
 /**
+ the last encountered error for out-of-band authentication issues. can be queried in a failure block and should be correct.
+ if checked in a success block it will not be relevant.
+ */
+@property (nonatomic, strong, nullable) NSError *lastAuthenticationError;
+
+/**
  Gets authentified user identity.
  
  @param success A block object to be executed when the get operation finishes successfully. This block has no return value and one argument: the user identity.

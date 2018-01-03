@@ -108,6 +108,10 @@ typedef void (^DGAuthenticationSuccessBlock)(DGIdentity * _Nonnull);
  */
 - (void)logout;
 
+/** exposes the fully formed OAuth HTTP request headers in case they need to be used in an external library (like SDWebImage or the like)
+ */
+- (nullable NSString *)authorizationHeaderForMethod:(NSString *)httpMethod;
+
 @end
 
 NS_ASSUME_NONNULL_END

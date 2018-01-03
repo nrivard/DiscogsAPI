@@ -185,4 +185,9 @@ API_AVAILABLE(ios(11.0))
     [self invokeOpenURLWithErrorConditions];
 }
 
+- (NSString *)authorizationHeaderForMethod:(NSString *)httpMethod {
+    NSURLRequest *fakeRequest = [self.manager.HTTPClient requestWithMethod:httpMethod path:nil parameters:nil];
+    return fakeRequest.allHTTPHeaderFields[@"Authorization"];
+}
+
 @end

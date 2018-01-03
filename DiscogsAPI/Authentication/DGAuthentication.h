@@ -74,14 +74,6 @@ typedef void (^DGAuthenticationSuccessBlock)(DGIdentity * _Nonnull);
 - (void)authenticateWithCallback:(NSURL *)callback success:(DGAuthenticationSuccessBlock)success failure:(nullable DGFailureBlock)failure;
 
 /**
- Call this method from the [UIApplicationDelegate application:openURL:options:] method of the AppDelegate for your app. It should be invoked for the proper processing of responses during interaction with Safari as part of the authentication flow.
-
- @param url The URL as passed to [UIApplicationDelegate application:openURL:options:] .
- @return Returns: YES if the url was intended for the Discogs authentication, NO if not.
- */
-- (BOOL)openURL:(NSURL *)url;
-
-/**
  Initiate an authenticate process.
  
  @param authView A block object to be executed when the authenticate operation ask for user authorization. This block has no return value and one argument: The prepared `UIWebView` object that can be shown to the user for authorization.
@@ -100,6 +92,18 @@ typedef void (^DGAuthenticationSuccessBlock)(DGIdentity * _Nonnull);
  - [DGAuthentication authenticateWithCallback:success:failure:] in your app delegate.
  */
 - (void)authenticateWithInitiallyPreparedView:(void (^)(UIView *view))authView success:(DGAuthenticationSuccessBlock)success failure:(nullable DGFailureBlock)failure;
+
+/**
+ Call this method from the [UIApplicationDelegate application:openURL:options:] method of the AppDelegate for your app. It should be invoked for the proper processing of responses during interaction with Safari as part of the authentication flow.
+ 
+ @param url The URL as passed to [UIApplicationDelegate application:openURL:options:] .
+ @return Returns: YES if the url was intended for the Discogs authentication, NO if not.
+ */
+- (BOOL)openURL:(NSURL *)url;
+
+/** exposes the fully formed OAuth HTTP request headers in case they need to be used in an external library (like SDWebImage or the like)
+ */
+- (nullable NSString *)authorizationHeaderForMethod:(NSString *)httpMethod;
 
 @end
 

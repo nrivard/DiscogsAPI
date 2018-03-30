@@ -66,6 +66,7 @@
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[DGWant class]];
     [mapping addAttributeMappingsFromDictionary:@{
                                                   @"id"             : @"ID",
+                                                  @"date_added"     : @"dateAdded",
                                                   @"rating"         : @"rating",
                                                   @"notes"          : @"notes",
                                                   @"resource_url"   : @"resourceURL"

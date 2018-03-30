@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface DGWant : DGObject
 
+/// Date this want was added by the user
+@property (nonatomic, strong, nullable) NSString *dateAdded;
+
 /// The release rating.
 @property (nonatomic, strong, nullable) NSNumber  *rating;
 

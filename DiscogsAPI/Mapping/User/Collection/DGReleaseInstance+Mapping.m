@@ -34,7 +34,8 @@
                                                   @"uri"            : @"uri",
                                                   @"resource_url"   : @"resourceURL",
                                                   @"rating"         : @"rating",
-                                                  @"folder_id"      : @"folderID"
+                                                  @"folder_id"      : @"folderID",
+                                                  @"date_added"     : @"dateAdded"
                                                   }];
     
     [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"basic_information" toKeyPath:@"basicInformation" withMapping:[DGRelease mapping]]];

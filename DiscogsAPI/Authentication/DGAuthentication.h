@@ -23,6 +23,8 @@
 #import "DGEndpoint.h"
 #import "DGIdentity.h"
 
+@import UIKit;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

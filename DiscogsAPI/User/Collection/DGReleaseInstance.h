@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The release folder ID.
 @property (nonatomic, strong, nullable) NSNumber *folderID;
 
+/// the date this instance was added by the user
+@property (nonatomic, strong, nullable) NSString *dateAdded;
+
 /// user rating for this release instance
 @property (nonatomic, strong, nullable) NSNumber *rating;
 

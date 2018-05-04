@@ -174,7 +174,7 @@ API_AVAILABLE(ios(11.0))
     return WKNavigationActionPolicyCancel;
 }
 
-- (void)authView:(DGAuthView *)authView didFØailToLoadWithError:(NSError *)error {
+- (void)authView:(DGAuthView *)authView didFailToLoadWithError:(NSError *)error {
     self.lastAuthenticationError = error;
     [self invokeOpenURLWithErrorConditions];
 }

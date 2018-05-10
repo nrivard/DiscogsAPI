@@ -103,14 +103,19 @@ static NSString *const DGAuthKVOKeyPathEstimatedProgress = @"estimatedProgress";
 }
 
 - (void)loadRequest:(NSURLRequest *)request {
-    if (@available(iOS 11.0, *)) {
-        WKHTTPCookieStore *cookieStorage = self.webView.configuration.websiteDataStore.httpCookieStore;
+    
+    void (^requestLoader)(void) = ^{
+        // Enable cookies
+        NSMutableURLRequest *mutableRequest = request.mutableCopy;
+        mutableRequest.HTTPShouldHandleCookies = YES;
         
-        // Delete previous cookies, especially important for a logout
-        [cookieStorage getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull cookies) {
-            for (NSHTTPCookie *cookie in cookies) {
-                [cookieStorage deleteCookie:cookie completionHandler:nil];
-            }
+        [self.webView loadRequest:mutableRequest];
+    };
+    
+    if (@available(iOS 11.0, *)) {
+        NSSet<NSString *> *dataTypes = [NSSet setWithObject:WKWebsiteDataTypeCookies];
+        [self.webView.configuration.websiteDataStore removeDataOfTypes:dataTypes modifiedSince:[NSDate dateWithTimeIntervalSince1970:0.0] completionHandler:^{
+            requestLoader();
         }];
     } else {
         NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -122,13 +127,9 @@ static NSString *const DGAuthKVOKeyPathEstimatedProgress = @"estimatedProgress";
         }
         
         cookieStorage.cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+        
+        requestLoader();
     }
-    
-    // Enable cookies
-    NSMutableURLRequest *mutableRequest = request.mutableCopy;
-    mutableRequest.HTTPShouldHandleCookies = YES;
-    
-    [self.webView loadRequest:mutableRequest];
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

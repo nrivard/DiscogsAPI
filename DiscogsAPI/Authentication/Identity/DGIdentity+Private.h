@@ -22,8 +22,6 @@
 
 #import "DGIdentity.h"
 
-#import "AFOAuth1Client.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DGIdentity (Private)

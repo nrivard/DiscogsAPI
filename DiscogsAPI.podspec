@@ -51,6 +51,7 @@ Pod::Spec.new do |s|
     ss.private_header_files = 'DiscogsAPI/Authentication/DGAuthView.h',
                               'DiscogsAPI/Authentication/DGTokenStore.h',
                               'DiscogsAPI/Authentication/Identity/DGIdentity+Keychain.h',
+                              'DiscogsAPI/Authentication/Identity/DGIdentity+Private.h',
                               'DiscogsAPI/Mapping/Authentication/**/*.h'
 
     ss.dependency 'DiscogsAPI/Core'

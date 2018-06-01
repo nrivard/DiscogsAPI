@@ -12,7 +12,6 @@
 
 #import "DiscogsAPI.h"
 #import "DGAuthentication.h"
-#import "DGIdentity+Private.h"
 #import "DGIdentity.h"
 #import "DGEndpoint.h"
 #import "DGObject.h"

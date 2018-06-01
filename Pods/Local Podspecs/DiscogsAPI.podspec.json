@@ -80,6 +80,7 @@
         "DiscogsAPI/Authentication/DGAuthView.h",
         "DiscogsAPI/Authentication/DGTokenStore.h",
         "DiscogsAPI/Authentication/Identity/DGIdentity+Keychain.h",
+        "DiscogsAPI/Authentication/Identity/DGIdentity+Private.h",
         "DiscogsAPI/Mapping/Authentication/**/*.h"
       ],
       "dependencies": {

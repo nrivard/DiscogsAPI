@@ -27,6 +27,7 @@
 #import "DGAuthView.h"
 
 #import "DGTokenStore.h"
+#import "DGIdentity+Private.h"
 #import "DGIdentity+Keychain.h"
 #import "DGIdentity+Mapping.h"
 

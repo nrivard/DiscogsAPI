@@ -7,13 +7,11 @@
 //
 
 #import "DGIdentity+Keychain.h"
+#import "DGIdentity+Private.h"
 
 NSString * const kDGIdentityCurrentIdentifier = @"DGIdentityCurrentIdentifier";
 
 @implementation DGIdentity (Keychain)
-
-@dynamic current;
-@dynamic accessToken;
 
 #pragma mark <NSSecureCoding>
 

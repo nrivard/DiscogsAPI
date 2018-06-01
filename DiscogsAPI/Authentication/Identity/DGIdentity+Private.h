@@ -1,6 +1,6 @@
-// DGIdentity.h
+// DGIdentity+Private.h
 //
-// Copyright (c) 2017 Maxime Epain
+// Copyright (c) 2018 Maxime Epain
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,36 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DGObject.h"
+#import "DGIdentity.h"
 
-@class AFOAuth1Token;
+#import "AFOAuth1Client.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- User identification class.
- */
-@interface DGIdentity : DGObject
+@interface DGIdentity (Private)
 
 /**
- The currently autenticated user identity.
+ Redeclaring without readonly so internal components can nil it out
  */
-@property (class, strong, nullable) DGIdentity *current;
-
-/**
- User name.
- */
-@property (nonatomic, strong, nullable) NSString *userName;
-
-/**
- User consumer name.
- */
-@property (nonatomic, strong, nullable) NSString *consumerName;
-
-/**
- The user access token.
- */
-@property (nonatomic, strong, readonly) AFOAuth1Token *accessToken;
+@property (nonatomic, strong) AFOAuth1Token *accessToken;
 
 @end
 

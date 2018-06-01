@@ -21,10 +21,7 @@
 // THE SOFTWARE.
 
 #import "DGIdentity+Keychain.h"
-
-@interface DGIdentity ()
-@property (nonatomic, strong) AFOAuth1Token *accessToken;
-@end
+#import "DGIdentity+Private.h"
 
 @implementation DGIdentity
 

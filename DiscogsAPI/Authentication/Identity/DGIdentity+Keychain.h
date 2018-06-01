@@ -7,7 +7,6 @@
 //
 
 #import "DGIdentity.h"
-#import "AFOAuth1Client.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,16 +62,6 @@ extern NSString * const kDGIdentityCurrentIdentifier;
  @return 'YES' if it succeeded. Otherwise 'NO'.
  */
 + (BOOL)storeIdentity:(nullable DGIdentity *)identity withIdentifier:(NSString *)identifier;
-
-/**
- The currently authenticated user identity.
- */
-@property (class, nullable) DGIdentity *current;
-
-/**
- The user access token.
- */
-@property (nonatomic, strong) AFOAuth1Token *accessToken;
 
 @end
 

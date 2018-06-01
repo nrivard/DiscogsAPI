@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C9CC96E4C3832E875C1362F /* Pods_DiscogsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773B396CECFA85BD82936371 /* Pods_DiscogsAPI.framework */; };
+		677C9D1C20C1E8780003048A /* DGIdentity+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 677C9D1B20C1E7A70003048A /* DGIdentity+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		768E805B1E8093B200EFF531 /* DGCompany.h in Headers */ = {isa = PBXBuildFile; fileRef = 768E80591E8093B200EFF531 /* DGCompany.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		768E805C1E8093B200EFF531 /* DGCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 768E805A1E8093B200EFF531 /* DGCompany.m */; };
 		768E805F1E8093CD00EFF531 /* DGCompany+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 768E805D1E8093CD00EFF531 /* DGCompany+Mapping.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -211,6 +212,7 @@
 		33812A763705B9B4F13B5B96 /* Pods-Discogs-objc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discogs-objc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Discogs-objc/Pods-Discogs-objc.debug.xcconfig"; sourceTree = "<group>"; };
 		52F40CB5A7933A3EF4FA8720 /* Pods-Discogs-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discogs-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Discogs-swift/Pods-Discogs-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		65B306E0B8BAC4CEEFD806F1 /* Pods-DiscogsAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscogsAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiscogsAPITests/Pods-DiscogsAPITests.release.xcconfig"; sourceTree = "<group>"; };
+		677C9D1B20C1E7A70003048A /* DGIdentity+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DGIdentity+Private.h"; sourceTree = "<group>"; };
 		768E80591E8093B200EFF531 /* DGCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGCompany.h; sourceTree = "<group>"; };
 		768E805A1E8093B200EFF531 /* DGCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGCompany.m; sourceTree = "<group>"; };
 		768E805D1E8093CD00EFF531 /* DGCompany+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DGCompany+Mapping.h"; sourceTree = "<group>"; };
@@ -1073,6 +1075,7 @@
 				D0A5887D1CFF9482008DF0A4 /* DGIdentity.m */,
 				9CCD12591DD75271002BEEA8 /* DGIdentity+Keychain.h */,
 				9CCD125A1DD75271002BEEA8 /* DGIdentity+Keychain.m */,
+				677C9D1B20C1E7A70003048A /* DGIdentity+Private.h */,
 			);
 			path = Identity;
 			sourceTree = "<group>";
@@ -1208,6 +1211,7 @@
 				D0A588A01CFF9482008DF0A4 /* DGTrack.h in Headers */,
 				9C0AB1EB1DB11ABD004716A1 /* DGListing.h in Headers */,
 				9C0F09781DB261CE00FB09D9 /* DGInventory.h in Headers */,
+				677C9D1C20C1E8780003048A /* DGIdentity+Private.h in Headers */,
 				9C0F098B1DB5228F00FB09D9 /* DGOrder.h in Headers */,
 				D0A588EC1CFF9482008DF0A4 /* DGCollection.h in Headers */,
 				D0A588F01CFF9482008DF0A4 /* DGCollectionFieldInstance.h in Headers */,
@@ -1266,7 +1270,6 @@
 				9C1CCA3F1DBA9AEA0049AD5D /* Frameworks */,
 				9C1CCA401DBA9AEA0049AD5D /* Resources */,
 				FA004E3C99150EE1DD8BD49A /* [CP] Embed Pods Frameworks */,
-				BAD837F7A20B0AA06D2971A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1286,7 +1289,6 @@
 				9CA793D51D04EB3A0006EE89 /* Frameworks */,
 				9CA793D61D04EB3A0006EE89 /* Resources */,
 				A2DD230902ACBBF0B5C0DE91 /* [CP] Embed Pods Frameworks */,
-				CEAE3A7CB31B036DFA700329 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1306,7 +1308,6 @@
 				9CA794061D055FB40006EE89 /* Frameworks */,
 				9CA794071D055FB40006EE89 /* Resources */,
 				5689DAEF47A2039DA5EC26A9 /* [CP] Embed Pods Frameworks */,
-				681005B6F7495E7BFFA6456C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1326,7 +1327,6 @@
 				D0D63B2D1CFF91B10001942B /* Frameworks */,
 				D0D63B2E1CFF91B10001942B /* Headers */,
 				D0D63B2F1CFF91B10001942B /* Resources */,
-				BD89FB9B8ACAA8014210DD73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1508,21 +1508,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discogs-objc/Pods-Discogs-objc-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		681005B6F7495E7BFFA6456C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discogs-objc/Pods-Discogs-objc-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		746B49A2AB70A2F62F1C880C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1585,51 +1570,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discogs-swift/Pods-Discogs-swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BAD837F7A20B0AA06D2971A2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DiscogsAPITests/Pods-DiscogsAPITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD89FB9B8ACAA8014210DD73 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DiscogsAPI/Pods-DiscogsAPI-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CEAE3A7CB31B036DFA700329 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discogs-swift/Pods-Discogs-swift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FA004E3C99150EE1DD8BD49A /* [CP] Embed Pods Frameworks */ = {

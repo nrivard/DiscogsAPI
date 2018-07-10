@@ -37,7 +37,8 @@
                                                   @"released"       : @"released",
                                                   @"catno"          : @"catno",
                                                   @"resource_url"   : @"resourceURL",
-                                                  @"id"             : @"ID"
+                                                  @"id"             : @"ID",
+                                                  @"major_formats"  : @"majorFormats"
                                                   }
      ];
     

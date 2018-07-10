@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface DGMasterVersion : DGLabelRelease
 
+/// denotes physical media formats. this has been moved out of DGMasterVersion.format on the server
+@property (nonatomic, strong, nullable) NSArray<NSString *> *majorFormats;
+
 @end
 
 /**

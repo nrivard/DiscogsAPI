@@ -25,6 +25,7 @@
 #import "DGReleaseInstance.h"
 #import "DGCollectionFolder.h"
 #import "DGCollectionField.h"
+#import "DGCollectionValue.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -149,6 +150,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param failure A block object to be executed when the synchronization operation finishes unsuccessfully. This block has no return value and takes one argument: The `NSError` object describing the error that occurred.
  */
 - (void)editField:(DGEditFieldsInstanceRequest *)request success:(void (^)())success failure:(nullable DGFailureBlock)failure;
+
+/**
+ Get ther user's collection value range
+
+ @param userName the user's username
+ @param success A block object to be executed that gets passed an object that represents the range of values a user's collection is
+ @param failure A block object to be executed when the synchronization operation finishes unsuccessfully. This block has no return value and takes one argument: The `NSError` object describing the error that occurred.
+ */
+- (void)getValue:(NSString *)userName success:(void (^)(DGCollectionValue *collectionValue))success failure:(nullable DGFailureBlock)failure;
 
 @end
 

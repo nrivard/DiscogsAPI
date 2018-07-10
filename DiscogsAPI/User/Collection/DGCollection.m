@@ -58,6 +58,8 @@
     //Edit instance field request
     [manager.router.routeSet addRoute:[RKRoute routeWithClass:[DGEditFieldsInstanceRequest class] pathPattern:@"/users/:userName/collection/folders/:folderID/releases/:releaseID/instances/:instanceID/fields/:fieldID" method:RKRequestMethodPOST]];
     [manager addRequestDescriptor:[DGEditFieldsInstanceRequest requestDescriptor]];
+
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[DGCollectionValueRequest class] pathPattern:@"users/:userName/collection/value" method:RKRequestMethodGET]];
 }
 
 - (void)getFolders:(NSString *)userName success:(void (^)(NSArray<DGCollectionFolder *> *folders))success failure:(void (^)(NSError *error))failure {
@@ -167,6 +169,16 @@
     DGOperation *operation = [self.manager operationWithRequest:request method:RKRequestMethodPOST];
     [operation setCompletionBlockWithSuccess:success failure:failure];
     
+    [self.queue addOperation:operation];
+}
+
+- (void)getValue:(NSString *)userName success:(void (^)(DGCollectionValue *collectionValue))success failure:(nullable DGFailureBlock)failure {
+    DGCollectionValueRequest *request = [DGCollectionValueRequest new];
+    request.userName = userName;
+
+    DGOperation *operation = [self.manager operationWithRequest:request method:RKRequestMethodGET responseClass:[DGCollectionValue class]];
+    [operation setCompletionBlockWithSuccess:success failure:failure];
+
     [self.queue addOperation:operation];
 }
 

@@ -47,7 +47,7 @@ DEPENDENCIES:
   - RestKit/Testing (~> 0.27.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - ISO8601DateFormatterValueTransformer
     - RestKit
     - RKValueTransformers
@@ -68,4 +68,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8de082adc9c7101a8483fc372fc614bd5c3da216
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

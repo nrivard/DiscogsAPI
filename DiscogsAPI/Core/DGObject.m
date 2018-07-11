@@ -29,4 +29,19 @@
     return [NSString stringWithFormat:format, NSStringFromClass(self.class), self.ID, self.resourceURL, self.uri];
 }
 
+- (BOOL)isEqual:(id)object {
+    // test we are the same kind of DGObject subclass
+    if ([object isKindOfClass:[self class]]) {
+        // now test that our IDs are the same
+        DGObject *other = object;
+        return [other.ID isEqual:self.ID];
+    }
+
+    return NO;
+}
+
+- (NSUInteger)hash {
+    return [self.ID hash];
+}
+
 @end

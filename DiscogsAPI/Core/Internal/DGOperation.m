@@ -56,9 +56,16 @@ NSString * const DGErrorDomain = @"com.discogs.api";
         success(weakSelf.response);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         if (failure) {
+            NSMutableDictionary<NSString *, id> *userInfo = [NSMutableDictionary dictionary];
+
             NSString *description = error.userInfo[NSLocalizedDescriptionKey];
-            NSDictionary<NSString *, id> *userInfo = @{ DGErrorRKObjectOperationKey : operation,
-                                                        NSLocalizedDescriptionKey : description };
+            if ([description length]) {
+                userInfo[NSLocalizedDescriptionKey] = description;
+            }
+
+            if (operation) {
+                userInfo[DGErrorRKObjectOperationKey] = operation;
+            }
             
             NSInteger code = operation.HTTPRequestOperation.response.statusCode;
             failure([NSError errorWithDomain:DGErrorDomain code:code userInfo:userInfo]);
